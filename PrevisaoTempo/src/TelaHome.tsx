@@ -12,18 +12,21 @@ const TelaHome = () => {
 
     //preciso da funcao login
 
+    const login = () => {
+   
+       getTempoApi()
+      };
+
     const apikey = 'ad6a89d002b639e8b62203e0b3bc40ca'
         const getTempoApi = async () => {
 
-            await axios.get(`hhtp://api.openweathermap.org/data/3.0/weather?q=${getNomeCidade}&appid=${apikey}`)
+            await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=Canoas&appid=ad6a89d002b639e8b62203e0b3bc40ca`)
             .then(function (res){
-                console.log(res.data)
+                console.log(res)
             })
         }
 
-        useEffect(() => {
-        getTempoApi()},
-        [])
+       
 
     return (
 
@@ -35,7 +38,7 @@ const TelaHome = () => {
                 placeholder='Nome da Cidade'
             />
 
-            <Pressable>
+            <Pressable onPress={login}>
                 <Text style={styles.button}>Confirmar</Text>
             </Pressable>
 
