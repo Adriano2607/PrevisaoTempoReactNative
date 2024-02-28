@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { TextInput, View, StyleSheet, Pressable, Alert } from 'react-native';
+import { TextInput, View, StyleSheet, Pressable, Alert, Text } from 'react-native';
 import axios from 'axios';
 import { Button, theme } from 'galio-framework';
 import { Input, Block } from 'galio-framework';
@@ -36,7 +36,7 @@ const TelaHome = ({ navigation }: any) => {
 
 
     const navigateToOutraTela = () => {
-        if (getNomeCidade) navigation.navigate('TelaInformacoes', { cidade: getNomeCidade });
+        if (getNomeCidade) navigation.navigate('TelaInformacoes', { cidade: getNomeCidade.trim() });
         else    Alert.alert("Informe os dados GENIO!!!")
     };
 
@@ -44,7 +44,7 @@ const TelaHome = ({ navigation }: any) => {
 
     return (
         <View style={styles.container}>
-          
+            <Text style={{fontSize:40,color:'black'}}>Oi</Text>
                 <Input placeholder="Cidade" rounded right
                     icon="map-pin"
                     family="Feather"
