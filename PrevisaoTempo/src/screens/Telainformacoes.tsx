@@ -22,17 +22,21 @@ const TelaInformacoes = ({ route }: any) => {
     const apikey = 'ad6a89d002b639e8b62203e0b3bc40ca';
 
 
+    const goBack = () => {
+        navigation.goBack()
+    }
+
     const getTempoApi = async () => {
         try {
-            const res = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${apikey}`);
+            const res = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${apikey}&lang=pt_br&units=metric`);
             const { sys, weather, main, name } = res.data;
             setTempo(weather);
-            setSysData(sys);
+            setSysData(sys);``
             setMain(main)
             setCidade(name)
         } catch (error) {
             Alert.alert("Cidade nao Encontrada !!!")
-            navigation.goBack()
+           goBack()
         }
     };
 
@@ -57,7 +61,7 @@ const TelaInformacoes = ({ route }: any) => {
 
                         <View style={{flexDirection:"row",alignItems:'center'}}>
                         <FontAwesome5 name="temperature-high" size={20} color="black" />
-                        <Text style={{ fontWeight: "900", fontSize: 50,marginLeft:5 }}>{getMain?.temp ? (getMain?.temp - 273.15).toFixed(0) + "°C" : "N/A"}</Text>
+                        <Text style={{ fontWeight: "900", fontSize: 50,marginLeft:5 }}>{getMain?.temp ? getMain?.temp .toFixed(0) + "°C" : "N/A"}</Text>
                         </View>
                        
 
@@ -66,24 +70,24 @@ const TelaInformacoes = ({ route }: any) => {
                         <Image style={{ height: 60,width:50 }} source={{ uri: `http://openweathermap.org/img/wn/${item.icon}.png` }} />
 
                         </View>
-                        <Text style={{fontSize:25,textTransform:"capitalize",marginBottom:5}}>{item.description}</Text>
+                        <Text style={{fontSize:25,textTransform:"capitalize",marginBottom:10}}>{item.description}</Text>
 
 
                         <View style={{flexDirection:"row",alignItems:'center'}}>
                         <FontAwesome5 name="temperature-low" size={20} color="black" />
-                        <Text style={{marginLeft:5}}>Temp Max: {getMain?.temp_max ? (getMain?.temp_max - 273.15).toFixed(0) + "°C" : "N/A"}</Text>
+                        <Text style={{marginLeft:5}}>Temp Max: {getMain?.temp_max ? getMain?.temp_max .toFixed(0) + "°C" : "N/A"}</Text>
                         </View>
 
 
 
                         <View style={{flexDirection:"row",alignItems:'center'}}>
                         <FontAwesome5 name="temperature-low" size={20} color="black" />
-                        <Text style={{marginLeft:5}}>Temp Min: {getMain?.temp_min ? (getMain?.temp_min - 273.15).toFixed(0) + "°C" : "N/A"}</Text>
+                        <Text style={{marginLeft:5}}>Temp Min: {getMain?.temp_min ? getMain?.temp_min.toFixed(0) + "°C" : "N/A"}</Text>
                         </View>
 
                         <View style={{flexDirection:"row",alignItems:'center'}}>
                         <FontAwesome6 name="temperature-three-quarters" size={20} color="black" />
-                        <Text style={{marginLeft:5}}>Feels Like: {getMain?.feels_like ? (getMain.feels_like - 273.15).toFixed(0) + "°C" : "N/A"}</Text>
+                        <Text style={{marginLeft:5}}>Feels Like: {getMain?.feels_like ? getMain.feels_like.toFixed(0) + "°C" : "N/A"}</Text>
                         </View>
 
                         <View style={{flexDirection:"row",alignItems:'center'}}>
@@ -93,7 +97,7 @@ const TelaInformacoes = ({ route }: any) => {
                         </View>
 
                         
-                        
+    
                         
                         <View style={{flexDirection:"row",alignItems:'center'}}>
 
@@ -150,4 +154,4 @@ const styles = StyleSheet.create({
 
 export default TelaInformacoes
 
-// <Image style={{ height: 50 }} source={{ uri: `http://openweathermap.org/img/wn/${item.icon}.png` }} />
+

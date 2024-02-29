@@ -36,10 +36,17 @@ const TelaHome = ({ navigation }: any) => {
 
 
     const navigateToOutraTela = () => {
-        if (getNomeCidade) navigation.navigate('TelaInformacoes', { cidade: getNomeCidade.trim() });
-        else    Alert.alert("Informe os dados GENIO!!!")
+        if (getNomeCidade) {
+            navigation.navigate('TelaInformacoes', { cidade: getNomeCidade.trim() });
+            resetNomeCidade()
+        }else {
+            Alert.alert("Informe os dados GENIO!!!")
+        }   
     };
 
+    const resetNomeCidade = () => {
+        setNomeCidade('');
+    };
 
 
     return (
