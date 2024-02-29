@@ -3,6 +3,10 @@ import { FlatList, Image, Text, View, StyleSheet, Alert } from "react-native";
 import { SysData, WeatherData, mainData } from "./TelaHome";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
+import { FontAwesome6 } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const TelaInformacoes = ({ route }: any) => {
 
@@ -19,9 +23,6 @@ const TelaInformacoes = ({ route }: any) => {
 
 
     const getTempoApi = async () => {
-
-
-
         try {
             const res = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${apikey}`);
             const { sys, weather, main, name } = res.data;
@@ -54,22 +55,64 @@ const TelaInformacoes = ({ route }: any) => {
                             <Text style={{ fontWeight: "700", fontSize: 20 }}>, {getSys?.country}</Text>
                         </View>
 
+                        <View style={{flexDirection:"row",alignItems:'center'}}>
+                        <FontAwesome5 name="temperature-high" size={20} color="black" />
+                        <Text style={{ fontWeight: "900", fontSize: 50,marginLeft:5 }}>{getMain?.temp ? (getMain?.temp - 273.15).toFixed(0) + "°C" : "N/A"}</Text>
+                        </View>
+                       
 
-                        <Text style={{ fontWeight: "900", fontSize: 50 }}>{getMain?.temp ? (getMain?.temp - 273.15).toFixed(0) + "°C" : "N/A"}</Text>
-
+                        <View style={{flexDirection:"row",alignItems:'center'}}>
                         <Text style={styles.textos}>{item.main}</Text>
-                        <Text>Description: {item.description}</Text>
+                        <Image style={{ height: 60,width:50 }} source={{ uri: `http://openweathermap.org/img/wn/${item.icon}.png` }} />
+
+                        </View>
+                        <Text style={{fontSize:25,textTransform:"capitalize",marginBottom:5}}>{item.description}</Text>
+
+
+                        <View style={{flexDirection:"row",alignItems:'center'}}>
+                        <FontAwesome5 name="temperature-low" size={20} color="black" />
+                        <Text style={{marginLeft:5}}>Temp Max: {getMain?.temp_max ? (getMain?.temp_max - 273.15).toFixed(0) + "°C" : "N/A"}</Text>
+                        </View>
 
 
 
-                        <Text>Temp Max: {getMain?.temp_max ? (getMain?.temp_max - 273.15).toFixed(0) + "°C" : "N/A"}</Text>
-                        <Text>Temp Min: {getMain?.temp_min ? (getMain?.temp_min - 273.15).toFixed(0) + "°C" : "N/A"}</Text>
-                        <Text>Feels Like: {getMain?.feels_like ? (getMain.feels_like - 273.15).toFixed(0) + "°C" : "N/A"}</Text>
+                        <View style={{flexDirection:"row",alignItems:'center'}}>
+                        <FontAwesome5 name="temperature-low" size={20} color="black" />
+                        <Text style={{marginLeft:5}}>Temp Min: {getMain?.temp_min ? (getMain?.temp_min - 273.15).toFixed(0) + "°C" : "N/A"}</Text>
+                        </View>
 
-                        <Text>Humidity: {getMain?.humidity} %</Text>
-                        <Text>Pressure: {getMain?.pressure} Pa</Text>
-                        <Text>Sunrise: {getSys ? new Date(getSys.sunrise * 1000).toLocaleTimeString() : ''}</Text>
-                        <Text>Sunset: {getSys ? new Date(getSys.sunset * 1000).toLocaleTimeString() : ''}</Text>
+                        <View style={{flexDirection:"row",alignItems:'center'}}>
+                        <FontAwesome6 name="temperature-three-quarters" size={20} color="black" />
+                        <Text style={{marginLeft:5}}>Feels Like: {getMain?.feels_like ? (getMain.feels_like - 273.15).toFixed(0) + "°C" : "N/A"}</Text>
+                        </View>
+
+                        <View style={{flexDirection:"row",alignItems:'center'}}>
+
+                        <MaterialCommunityIcons name="air-humidifier" size={20} color="black" />
+                        <Text style={{marginLeft:5}}>Humidity: {getMain?.humidity} %</Text>
+                        </View>
+
+                        
+                        
+                        
+                        <View style={{flexDirection:"row",alignItems:'center'}}>
+
+                        <MaterialCommunityIcons name="car-brake-low-pressure" size={20} color="black" />
+                        <Text style={{marginLeft:5}}>Pressure: {getMain?.pressure} Pa</Text>
+                        </View>
+
+                        
+                        <View style={{flexDirection:"row",alignItems:'center'}}>
+                        <Feather name="sunrise" size={20} color="black" />
+                        <Text style={{marginLeft:5}}>Sunrise: {getSys ? new Date(getSys.sunrise * 1000).toLocaleTimeString() : ''}</Text>
+                        </View>
+                       
+                       
+                        <View style={{flexDirection:"row",alignItems:'center'}}>
+                        <Feather name="sunset" size={20} color="black" />
+                        <Text style={{marginLeft:5}}>Sunset: {getSys ? new Date(getSys.sunset * 1000).toLocaleTimeString() : ''}</Text>
+                        </View>
+
                     </View>
                 )}
                 keyExtractor={(item) => String(item.id)}
@@ -100,7 +143,7 @@ const styles = StyleSheet.create({
         borderRadius: 10
     }, textos: {
         fontSize: 25,
-        marginBottom: 5
+     
     }
 
 });
